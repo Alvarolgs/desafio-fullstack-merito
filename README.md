@@ -343,6 +343,40 @@ Retorno esperado:
 
 ---
 
+## 🐳 Docker
+
+### Build da imagem e Rodar Container
+
+```bash
+cd backend
+docker build -t merito-invest-backend .
+docker run -p 3001:3001 merito-invest-backend
+```
+
+---
+
+## ⚙️ CI/CD Pipeline
+
+O projeto possui um pipeline configurado utilizando GitHub Actions.
+
+### Etapas do pipeline:
+
+1. **Testes**
+   - Instala dependências
+   - Executa testes automatizados
+
+2. **Build**
+   - Cria imagem Docker do backend
+   - Exporta a imagem como artefato
+
+3. **Deploy (simulado)**
+   - Carrega a imagem Docker
+   - Exibe informações do deploy
+
+O pipeline é executado automaticamente a cada push nas branches `main` e `master`.
+
+---
+
 ## Lógica de Negócio
 
 - **Aporte**: incrementa saldo e quantidade de cotas na carteira. A quantidade de cotas é calculada como `valor / valor_cota` do fundo.
