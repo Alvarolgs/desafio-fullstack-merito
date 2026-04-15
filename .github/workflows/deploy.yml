@@ -90,9 +90,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: docker-image
+          path: ./docker-image
 
       - name: Carregar imagem Docker
-        run: docker load < image.tar.gz
+        run: docker load < ./docker-image/image.tar.gz
 
       - name: Simular deploy
         run: |
