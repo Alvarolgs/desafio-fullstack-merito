@@ -1,0 +1,32 @@
+# ---- Build Stage ----
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+COPY src/ ./src/
+
+# ---- Production Stage ----
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Cria usuário não-root por segurança
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+# Diretório persistente para o banco SQLite
+RUN mkdir -p /app/data && chown appuser:appgroup /app/data
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/src ./src
+COPY package*.json ./
+
+USER appuser
+
+EXPOSE 3001
+
+ENV NODE_ENV=production
+
+CMD ["node", "src/server.js"]
