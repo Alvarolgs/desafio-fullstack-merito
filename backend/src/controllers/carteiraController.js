@@ -6,7 +6,7 @@ function resumoCarteira(req, res) {
     return res.json(resumo);
   } catch (err) {
     return res.status(500).json({
-      erro: "Erro ao buscar resumo da carteira.",
+      erro: "Erro ao buscar resumo da carteira de investimentos.",
       detalhe: err.message,
     });
   }
